@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="bmi.css" />
+
+    <link rel="icon" href="https://www.pnbmetlife.com/content/dam/pnb-metlife/images/icons/bmi-calculator/meter.png">
+
+    <title>BMI Calculator</title>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-light">
+        <div class="container-fluid">
+            <a class="navbar-brand"
+                href="https://www.pnbmetlife.com/content/dam/pnb-metlife/images/icons/bmi-calculator/meter.png">
+                <img src="https://www.pnbmetlife.com/content/dam/pnb-metlife/images/icons/bmi-calculator/meter.png"
+                    alt="Logo" width="50" height="34" class=" ms-5 d-block align-text-top">
+                BMI CALCULATOR
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="diet.html">Diet Plan</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="text-center p-2">BMI Calculator</h1>
+
+        <form class="calculator mt-2 p-2">
+            <div class="icon ">
+                <label for="">Gender </label>
+                <input class="ms-5" type="radio" name="gender" required>
+                <label for=""><i class="fa-solid fa-person-dress"></i></label>
+                <input type="radio" name="gender" required>
+                <label for=""><i class="fa-solid fa-person "></i></label>
+            </div>
+            <div>
+                <label for="weight">Weight (kg)</label>
+                <input class="p-2 text-center" type="number" id="weight" min="0" step="0.01" required />
+            </div>
+
+            <div>
+                <label for="height">Height (cm)</label>
+                <input class="p-2 text-center" type="number" id="height" min="0" step="0.01" required />
+            </div>
+
+            <div class="mt-3">
+                <button class="text-light bg-danger w-50 p-3 border border-none" type="reset"
+                    onclick="onFormReset()">Reset</button>
+                <button class="text-light bg-success w-50 p-3 border border-none" type="submit"
+                    onclick="onFormSubmit()">Submit</button>
+            </div>
+        </form>
+
+        <section class="output text-center">
+            <h3 id="u"></h3>
+            <p class="fs-1" id="bmi"></p>
+            <p id="title"></p>
+        </section>
+
+        <section class="bmi-scale d-flex ">
+            <div id="underweight">
+                <!-- <h4 class="text-primary" >UNDERWEIGHT</h4>
+                <p>&lt; 18.5</p> -->
+            </div>
+
+            <div id="healthy">
+                <!-- <h4 class="text-success">Healthy</h4>
+                <p>18.5 – 25</p> -->
+            </div>
+
+            <div id="Overweight">
+                <!-- <h4 class="text-warning">Overweight</h4>
+                <p>25 – 30</p> -->
+            </div>
+
+            <div id="obese">
+                <!-- <h4 class="text-danger">Obese</h4>
+                <p>≥ 30</p> -->
+            </div>
+        </section>
+    </div>
+</body>
+
+<script>
+    const bmiText = document.getElementById("bmi");
+    const titleText = document.getElementById("title");
+    const form = document.querySelector("form");
+
+    form.addEventListener("submit", onFormSubmit);
+    // form.addEventListener("reset", onFormReset);
+
+    function onFormReset() {
+        u.textContent = ''
+        bmiText.textContent = '';
+        bmiText.className = "";
+        titleText.textContent = " ";
+
+        underweight.textContent = ''
+        healthy.textContent = ''
+        Overweight.textContent = ''
+        obese.textContent = ''
+
+    }
+
+    function onFormSubmit(e) {
+        e.preventDefault();
+
+        const weight = parseFloat(form.weight.value);
+        const height = parseFloat(form.height.value);
+
+        if (weight == '' || height == '' || weight <= 0 || height <= 0) {
+            alert("Please enter a valid weight and height");
+            return;
+        }
+
+        const heightInMeters = height / 100;
+        const bmi = weight / (heightInMeters * heightInMeters);
+        const title = interpretBMI(bmi);
+
+        bmiText.textContent = bmi.toFixed(2);
+        bmiText.className = title;
+        u.innerHTML = `Your BMI is`
+        titleText.innerHTML = `You are <strong>${title}</strong>`;
+
+        underweight.innerHTML = ` <h4 class="text-primary" >Underweight</h4>
+                <p>&lt; 18.5</p>`
+        healthy.innerHTML = `  <h4 class="text-success">Healthy</h4>
+                <p>18.5 – 25</p>`
+        Overweight.innerHTML = `  <h4 class="text-warning">Overweight</h4>
+                <p>25 – 30</p>`
+        obese.innerHTML = ` <h4 class="text-danger">Obese</h4>
+                <p>≥ 30</p>`
+    }
+
+    function interpretBMI(bmi) {
+        if (bmi < 18.5) {
+            return "underweight";
+        } else if (bmi < 25) {
+            return "healthy";
+        } else if (bmi < 30) {
+            return "overweight";
+        } else {
+            return "obese";
+        }
+    }
+</script>
+
+</html>
