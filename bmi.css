@@ -1,14 +1,14 @@
 * {
   box-sizing: border-box;
 }
-body {
+/* body {
   background-image: url(https://media.istockphoto.com/id/1329960632/vector/yellow-and-green-watercolor-background-for-spring.jpg?s=612x612&w=0&k=20&c=sl7US__tvveSaaX64tTG-O6LfA8MsriUkQtTiFvEx5Q=) !important;
   background-size: cover;
-  /* display: grid; */
+  display: grid;
   align-items: center;
   justify-content: center;
   height: 100vh;
-}
+} */
 .navbar {
   background-color: white;
   width: 100%;
