@@ -1,5 +1,9 @@
+@media all and (max-height: 90px) {
+  
+}
 * {
   box-sizing: border-box;
+
 }
 body {
   background-image: url("./images.jpeg") !important;
@@ -11,8 +15,7 @@ body {
   justify-content: center;
   height: 100vh;
 }
-@media all and (max-width: 100px) {
-}
+
 .navbar {
   background-color: white;
   width: 100%;
@@ -22,8 +25,9 @@ body {
   margin-right: 100px;
 }
 
+
 .container {
-  width: 100%;
+  /* width: 100%; */
   max-width: 420px;
   background: #fff;
   border-radius: 10px;
@@ -32,6 +36,7 @@ body {
   display: grid;
   gap: 1rem;
 }
+
 .calculator {
   display: grid;
   gap: 20px;
